@@ -1,5 +1,5 @@
 from word import Word
-from memory import Memory
+from uvsim import Memory
 
 accumulator = Word()
 
