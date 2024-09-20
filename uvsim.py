@@ -8,11 +8,20 @@ class Memory:
             self.memory.append(Word())
 
     def read_file(self,filename):
-        # iterate throught the lines
+        # iterate through the lines
+        with open(filename) as f:
+
+            lines = f.readlines()
+
+            if len(lines) > 100:
+                raise IndexError("File exceeds memory capacity of 100 lines.")
+            
+            for i, line in enumerate(lines):
+                self.memory[i].set_value(int(line))
         # if it is an int [-9999, 9999] then store it as a word
         # in order for the words lsit
 
-        return 0
+        # return 0
 
     def operate(self):
         # start at first word and then increment by 1
@@ -22,6 +31,7 @@ class Memory:
         operand = curr_word.get_value() % 100
         #find op code(first 2 digits)
         op_code = int(curr_word.get_value() // 100)
+
         match op_code:
             case 10:
                 self.read(operand)
