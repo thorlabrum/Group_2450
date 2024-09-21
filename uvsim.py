@@ -2,6 +2,7 @@ from word import Word
 
 class Memory:
     def __init__(self):
+        """Creates memory bank and accumulator for UVSim initializing all values to 0. """
         self.curr = 0
         self.memory = []
         for _ in range (100):
@@ -79,35 +80,47 @@ class Memory:
 
 
     def read(self, operand):
+        """Reads a word from the keyboard into a specific location in memory."""
         value = input()
         self.memory[operand].set_value(int(value))
         # print("read function called")
 
     def write(self, operand):
+        """Writes a word from a specific location in memory to screen."""
         print(self.memory[operand].get_value())
         # print("write function called")
 
     def load(self, operand):
+        """Loads a word from a specific location in memory into the accumulator."""
         self.accumulator = self.memory[operand].get_value()
         # print("load function called")
 
     def store(self, operand):
+        """Store a word from the accumulator into a specific location in memory."""
         self.memory[operand].set_value(self.accumulator)
         # print("store function called")
 
     def add(self, operand):
+        """Adds a word from a specific location in memory to the word
+        in the accumulator (leave the result in the accumulator)"""
         self.accumulator += self.memory[operand].get_value()
         # print("add function called")
 
     def subtract(self, operand):
+        """Subtracts a word from a specific location in memory from the word
+        in the accumulator (leave the result in the accumulator)"""
         self.accumulator -= self.memory[operand].get_value()
         # print("subtract function called")
 
     def divide(self, operand):
+        """Divide the word in the accumulator by a word from a specific
+        location in memory (leave the result in the accumulator)."""
         self.accumulator /= self.memory[operand].get_value()
         # print("divide function called")
 
     def multiply(self, operand):
+        """Multiplies a word from a specific location in memory and the word
+        in the accumulator (leave the result in the accumulator)."""
         self.accumulator *= self.memory[operand].get_value()
         # print("multiply function called")
 
@@ -121,5 +134,6 @@ class Memory:
         print("branchzero function called")
 
     def halt(self):
+        """Halts operate function as dictated by the loaded text file."""
         self.is_halted = True
         print("halt function called")
