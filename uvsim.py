@@ -64,13 +64,13 @@ class Memory:
                     self.curr += 1
                 case 40:
                     self.branch(operand)
-                    self.curr += 1
+                    #curr not incremented as branch changes it
                 case 41:
                     self.branchneg(operand)
-                    self.curr += 1
+                    #curr not incremented as branch changes it
                 case 42:
                     self.branchzero(operand)
-                    self.curr += 1
+                    #curr not incremented as branch changes it
                 case 43:
                     self.halt()
                     self.curr += 1
@@ -81,7 +81,7 @@ class Memory:
 
     def read(self, operand):
         """Reads a word from the keyboard into a specific location in memory."""
-        value = input()
+        value = input("Enter a value: ")
         self.memory[operand].set_value(int(value))
         # print("read function called")
 
@@ -125,13 +125,26 @@ class Memory:
         # print("multiply function called")
 
     def branch(self, operand):
-        print("branch function called")
+        """Branch unconditionally to a specific location in memory (operand)."""
+        self.curr = operand
+        print(f"branch to memory location {operand}")
 
     def branchneg(self, operand):
-        print("branchneg function called")
+        """Branch to a specific location if the accumulator is negative."""
+        if self.accumulator < 0:
+            self.curr = operand
+            print(f"branchneg to memory location {operand}")
+        else:
+            print("No branch, accumulator is not negative")
 
     def branchzero(self, operand):
-        print("branchzero function called")
+        """Branch to a specific location if the accumulator is zero."""
+        if self.accumulator == 0:
+            self.curr = operand
+            print(f"branchzero to memory location {operand}")
+        else:
+            print("No branch, accumulator is not zero")
+
 
     def halt(self):
         """Halts operate function as dictated by the loaded text file."""
