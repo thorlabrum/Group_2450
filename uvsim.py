@@ -21,6 +21,13 @@ class UVSim:
             for i, line in enumerate(lines):
                 self.memory[i].set_value(int(line))
 
+    def read_input(self, input_vals):
+        if len(input_vals) > 100:
+            raise IndexError("File exceeds memory capacity")
+        for i in range(len(input_vals)):
+            self.memory[i].set_value(int(input_vals[i]))
+
+
 
     def operate(self):
         """Resets current pointer and _is_halted. While loop iterates through each line
