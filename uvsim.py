@@ -1,6 +1,6 @@
 from word import Word
 
-class Memory:
+class UVSim:
     def __init__(self):
         """Creates memory bank and accumulator for UVSim initializing all values to 0. """
         self.curr = 0

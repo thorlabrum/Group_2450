@@ -1,11 +1,11 @@
 from word import Word
-from uvsim import Memory
+from uvsim import UVSim 
 
 
 def main():
-    memory = Memory()
-    memory.read_file("Test1.txt")
-    memory.operate()
+    sim = UVSim()
+    sim.read_file(input("Which file would you like to read?\n>"))
+    sim.operate()
 
 if __name__ == "__main__":
     main()
