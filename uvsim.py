@@ -27,75 +27,69 @@ class UVSim:
         for i in range(len(input_vals)):
             self.memory[i].set_value(int(input_vals[i]))
 
-    def operate(self, info):
+    def operate(self, info= ""):
         """Resets current pointer and _is_halted. While loop iterates through each line
         separating op_code and operand, reads in the command, and then increments self.current"""
-        print('running')
-        self.curr = 0
-        self.is_halted = False
+        curr_word = self.memory[self.curr]
+        #find operand(last 2 digits)
+        operand = curr_word.get_value() % 100
+        #find op code(first 2 digits)
+        op_code = int(curr_word.get_value() // 100)
+        # print(f"Opcode: {op_code}   Operand: {operand}")
 
-        while self.is_halted == False:
-
-            curr_word = self.memory[self.curr]
-            #find operand(last 2 digits)
-            operand = curr_word.get_value() % 100
-            #find op code(first 2 digits)
-            op_code = int(curr_word.get_value() // 100)
-            # print(f"Opcode: {op_code}   Operand: {operand}")
-
-            match op_code:
-                case 10:
-                    self.read(operand)
-                    info.append(f"reading {operand} from {curr_word} \n")
-                    self.curr += 1
-                case 11:
-                    self.write(operand)
-                    info.append(f"writing {operand} to {curr_word} \n")
-                    self.curr += 1
-                case 20:
-                    self.load(operand)
-                    info.append(f"loading {operand} from {curr_word} \n")
-                    self.curr += 1
-                case 21:
-                    self.store(operand)
-                    info.append(f"storing {operand} from {curr_word} \n")
-                    self.curr += 1
-                case 30:
-                    self.add(operand)
-                    info.append(f"adding {operand} from {curr_word} \n")
-                    self.curr += 1
-                case 31:
-                    self.subtract(operand)
-                    info.append(f"subtracting {operand} from {curr_word} \n")
-                    self.curr += 1
-                case 32:
-                    self.divide(operand)
-                    info.append(f"dividing {operand} from {curr_word} \n")
-                    self.curr += 1
-                case 33:
-                    self.multiply(operand)
-                    info.append(f"multiplying {operand} from {curr_word} \n")
-                    self.curr += 1
-                case 40:
-                    self.branch(operand)
-                    info.append(f"branching to {operand} from {curr_word} \n")
-                    #curr not incremented as branch changes it
-                case 41:
-                    self.branchneg(operand)
-                    info.append(f"attempting to branch to {operand} from {curr_word} \n")
-                    #curr not incremented as branch changes it
-                case 42:
-                    self.branchzero(operand)
-                    info.append(f"attempting to branch to {operand} from {curr_word} \n")
-                    #curr not incremented as branch changes it
-                case 43:
-                    self.halt()
-                    info.append(f"halting")
-                    self.curr += 1
-                case _:
-                    raise ValueError("Invalid op code")
+        match op_code:
+            case 10:
+                self.read(operand)
+                info.append(f"reading {operand} from {curr_word} \n")
+                self.curr += 1
+            case 11:
+                self.write(operand)
+                info.append(f"writing {operand} to {curr_word} \n")
+                self.curr += 1
+            case 20:
+                self.load(operand)
+                info.append(f"loading {operand} from {curr_word} \n")
+                self.curr += 1
+            case 21:
+                self.store(operand)
+                info.append(f"storing {operand} from {curr_word} \n")
+                self.curr += 1
+            case 30:
+                self.add(operand)
+                info.append(f"adding {operand} from {curr_word} \n")
+                self.curr += 1
+            case 31:
+                self.subtract(operand)
+                info.append(f"subtracting {operand} from {curr_word} \n")
+                self.curr += 1
+            case 32:
+                self.divide(operand)
+                info.append(f"dividing {operand} from {curr_word} \n")
+                self.curr += 1
+            case 33:
+                self.multiply(operand)
+                info.append(f"multiplying {operand} from {curr_word} \n")
+                self.curr += 1
+            case 40:
+                self.branch(operand)
+                info.append(f"branching to {operand} from {curr_word} \n")
+                #curr not incremented as branch changes it
+            case 41:
+                self.branchneg(operand)
+                info.append(f"attempting to branch to {operand} from {curr_word} \n")
+                #curr not incremented as branch changes it
+            case 42:
+                self.branchzero(operand)
+                info.append(f"attempting to branch to {operand} from {curr_word} \n")
+                #curr not incremented as branch changes it
+            case 43:
+                self.halt()
+                info.append(f"halting")
+                self.curr += 1
+            case _:
+                raise ValueError("Invalid op code")
             
-            return self.memory, info
+        return self.memory, info
             
 
 
