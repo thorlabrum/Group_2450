@@ -96,7 +96,7 @@ class UVSim:
                 info = f"halting"
                 self.curr += 1
             case _:
-                info = f"ValueError: {operand} is an invalid opcode."
+                info = f"ValueError: {op_code} of {op_code}{operand} is an invalid input."
             
         return self.memory, info
             
