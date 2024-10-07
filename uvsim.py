@@ -108,12 +108,12 @@ class UVSim:
 
     def load(self, operand):
         """Loads a word from a specific location in memory into the accumulator."""
-        self.accumulator = Word(self.memory[operand].get_value())
+        self.accumulator.set_value(self.memory[operand].get_value()) 
         # print("load function called")
 
     def store(self, operand):
         """Store a word from the accumulator into a specific location in memory."""
-        self.memory[operand].set_value(int(self.accumulator))
+        self.memory[operand].set_value(self.accumulator)
         # print("store function called")
 
     def add(self, operand):
@@ -131,7 +131,7 @@ class UVSim:
     def divide(self, operand):
         """Divide the word in the accumulator by a word from a specific
         location in memory (leave the result in the accumulator)."""
-        self.accumulator //= self.memory[operand] # floor div because we are using
+        self.accumulator //= self.memory[operand] # floor div because we are using ints
         # print("divide function called")
 
     def multiply(self, operand):
