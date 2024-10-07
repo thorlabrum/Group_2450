@@ -1,6 +1,6 @@
 class Word:
     def __init__(self, val = 0):
-        self.value = val
+        self.value = in_range(val)
 
     def __str__(self):
         if self.value > -1:
@@ -11,16 +11,16 @@ class Word:
         return self.value
 
     def __add__(self,r):
-        return Word(self.value + int(r))
+        return Word(in_range(self.value + int(r)))
     
     def __subtract__(self,r):
-        return Word(self.value - int(r))
+        return Word(in_range(self.value - int(r)))
     
     def __mult__(self, r):
-        return Word(self.value * int(r))
+        return Word(in_range(self.value * int(r)))
     
     def __floordiv__(self,r):
-        return Word(self.value // int(r))
+        return Word(in_range(self.value // int(r)))
     
     def __iadd__(self,r):
         return self + r
@@ -35,11 +35,20 @@ class Word:
         return self // r
 
     def set_value(self,x):
-        x = int(x)
-        if -9999 < x < 9999:
-            self.value = x
+        self.value = in_range(x)
 
     def get_value(self):
         return self.value
+    
+
+def in_range(x):
+    """makes sure x is within the bounds -9999 < x < 9999. It loops it around if it falls outside that range"""
+    x = int(x) # insures x is an integer
+    while not (-9999 < x < 9999):
+        if x < -9999:
+            x += 19999
+        elif x > 9999:
+            x -= 9999
+    return x
     
 
