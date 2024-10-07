@@ -15,17 +15,24 @@ class UVSim:
         with open(filename) as f:
             lines = f.readlines()
 
-            if len(lines) > 100:
-                raise IndexError("File exceeds memory capacity of 100 lines.")
-            
-            for i, line in enumerate(lines):
-                self.memory[i].set_value(int(line))
+            try:
+                if len(lines) > 100:
+                    raise IndexError("File exceeds memory capacity of 100 lines.")
+                
+                for i, line in enumerate(lines):
+                    self.memory[i].set_value(int(line))
+            except IndexError:
+                return "File exceeds memory capacity of 100 lines."
+
 
     def read_input(self, input_vals):
-        if len(input_vals) > 100:
-            raise IndexError("File exceeds memory capacity")
-        for i in range(len(input_vals)):
-            self.memory[i].set_value(int(input_vals[i]))
+        try:
+            if len(input_vals) > 100:
+                raise IndexError("File exceeds memory capacity")
+            for i in range(len(input_vals)):
+                self.memory[i].set_value(int(input_vals[i]))
+        except IndexError:
+            return "IndexError: File exceeds memory capacity of 100 lines."
 
     def operate(self, info= ""):
         """Resets current pointer and _is_halted. While loop iterates through each line
@@ -89,7 +96,7 @@ class UVSim:
                 info = f"halting"
                 self.curr += 1
             case _:
-                raise ValueError("Invalid op code")
+                info = f"ValueError: {operand} is an invalid opcode."
             
         return self.memory, info
             
