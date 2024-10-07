@@ -4,8 +4,6 @@ from uvsim import UVSim
 
 def main():
     sim = UVSim()
-
-    print(Word())
     sim.read_file(input("Which file would you like to read?\n>"))
     while not sim.is_halted:
         print(sim.operate()[1])

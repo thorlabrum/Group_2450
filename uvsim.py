@@ -6,8 +6,8 @@ class UVSim:
         self.curr = 0
         self.memory = []
         for _ in range (100):
-            self.memory.append(Word())
-        self.accumulator = 0
+            self.memory.append(Word(0))
+        self.accumulator = Word(0)
         self.is_halted = False
 
     def read_file(self,filename):
@@ -103,41 +103,41 @@ class UVSim:
 
     def write(self, operand):
         """Writes a word from a specific location in memory to screen."""
-        print(self.memory[operand].get_value())
+        print(self.memory[operand])
         # print("write function called")
 
     def load(self, operand):
         """Loads a word from a specific location in memory into the accumulator."""
-        self.accumulator = self.memory[operand].get_value()
+        self.accumulator = Word(self.memory[operand].get_value())
         # print("load function called")
 
     def store(self, operand):
         """Store a word from the accumulator into a specific location in memory."""
-        self.memory[operand].set_value(self.accumulator)
+        self.memory[operand].set_value(int(self.accumulator))
         # print("store function called")
 
     def add(self, operand):
         """Adds a word from a specific location in memory to the word
         in the accumulator (leave the result in the accumulator)"""
-        self.accumulator += self.memory[operand].get_value()
+        self.accumulator += self.memory[operand]
         # print("add function called")
 
     def subtract(self, operand):
         """Subtracts a word from a specific location in memory from the word
         in the accumulator (leave the result in the accumulator)"""
-        self.accumulator -= self.memory[operand].get_value()
+        self.accumulator -= self.memory[operand]
         # print("subtract function called")
 
     def divide(self, operand):
         """Divide the word in the accumulator by a word from a specific
         location in memory (leave the result in the accumulator)."""
-        self.accumulator /= self.memory[operand].get_value()
+        self.accumulator //= self.memory[operand] # floor div because we are using
         # print("divide function called")
 
     def multiply(self, operand):
         """Multiplies a word from a specific location in memory and the word
         in the accumulator (leave the result in the accumulator)."""
-        self.accumulator *= self.memory[operand].get_value()
+        self.accumulator *= self.memory[operand]
         # print("multiply function called")
 
     def branch(self, operand):
