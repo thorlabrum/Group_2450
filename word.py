@@ -10,10 +10,19 @@ class Word:
     def __int__(self):
         return self.value
 
+    def __lt__(self,r):
+        return self.value < int(r)
+    
+    def __gt__(self, r):
+        return self.value > int(r)
+    
+    def __eq__(self,r):
+        return self.value == int(r)
+
     def __add__(self,r):
         return Word(in_range(self.value + int(r)))
     
-    def __subtract__(self,r):
+    def __sub__(self,r):
         return Word(in_range(self.value - int(r)))
     
     def __mult__(self, r):
@@ -25,7 +34,7 @@ class Word:
     def __iadd__(self,r):
         return self + r
     
-    def __isubtract__(self,r):
+    def __isub__(self,r):
         return self - r
     
     def __imult__(self,r):
@@ -42,13 +51,13 @@ class Word:
     
 
 def in_range(x):
-    """makes sure x is within the bounds -9999 < x < 9999. It loops it around if it falls outside that range"""
+    """makes sure x is within the bounds -10000 < x < 10000. It loops it around if it falls outside that range"""
     x = int(x) # insures x is an integer
-    while not (-9999 < x < 9999):
+    while not (-10000 < x < 10000):
         if x < -9999:
             x += 19999
         elif x > 9999:
-            x -= 9999
+            x -= 19999
     return x
     
 

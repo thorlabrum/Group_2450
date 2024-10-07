@@ -152,6 +152,7 @@ class UVSim:
             print(f"branchneg to memory location {operand}")
         else:
             print("No branch, accumulator is not negative")
+            self.curr += 1 # branches need to move forward if they dont branch
 
     def branchzero(self, operand):
         """Branch to a specific location if the accumulator is zero."""
@@ -160,6 +161,7 @@ class UVSim:
             print(f"branchzero to memory location {operand}")
         else:
             print("No branch, accumulator is not zero")
+            self.curr += 1
 
 
     def halt(self):
