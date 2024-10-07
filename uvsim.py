@@ -8,7 +8,7 @@ class UVSim:
         for _ in range (100):
             self.memory.append(Word())
         self.accumulator = 0
-        self.is_halted = True
+        self.is_halted = False
 
     def read_file(self,filename):
         # iterate through the lines
@@ -40,51 +40,53 @@ class UVSim:
         match op_code:
             case 10:
                 self.read(operand)
-                info.append(f"reading {operand} from {curr_word} \n")
+                info = f"reading {operand} from {curr_word}"
+                # instead of appending to info, I just make info = the new string 
+                # because it is returned every time operate is called
                 self.curr += 1
             case 11:
                 self.write(operand)
-                info.append(f"writing {operand} to {curr_word} \n")
+                info = f"writing {operand} to {curr_word}"
                 self.curr += 1
             case 20:
                 self.load(operand)
-                info.append(f"loading {operand} from {curr_word} \n")
+                info = f"loading {operand} from {curr_word}"
                 self.curr += 1
             case 21:
                 self.store(operand)
-                info.append(f"storing {operand} from {curr_word} \n")
+                info = f"storing {operand} from {curr_word}"
                 self.curr += 1
             case 30:
                 self.add(operand)
-                info.append(f"adding {operand} from {curr_word} \n")
+                info = f"adding {operand} from {curr_word}"
                 self.curr += 1
             case 31:
                 self.subtract(operand)
-                info.append(f"subtracting {operand} from {curr_word} \n")
+                info = f"subtracting {operand} from {curr_word}"
                 self.curr += 1
             case 32:
                 self.divide(operand)
-                info.append(f"dividing {operand} from {curr_word} \n")
+                info = f"dividing {operand} from {curr_word} \n"
                 self.curr += 1
             case 33:
                 self.multiply(operand)
-                info.append(f"multiplying {operand} from {curr_word} \n")
+                info = f"multiplying {operand} from {curr_word}"
                 self.curr += 1
             case 40:
                 self.branch(operand)
-                info.append(f"branching to {operand} from {curr_word} \n")
+                info = f"branching to {operand} from {curr_word} \n"
                 #curr not incremented as branch changes it
             case 41:
                 self.branchneg(operand)
-                info.append(f"attempting to branch to {operand} from {curr_word} \n")
+                info = f"attempting to branch to {operand} from {curr_word}"
                 #curr not incremented as branch changes it
             case 42:
                 self.branchzero(operand)
-                info.append(f"attempting to branch to {operand} from {curr_word} \n")
+                info = f"attempting to branch to {operand} from {curr_word} \n"
                 #curr not incremented as branch changes it
             case 43:
                 self.halt()
-                info.append(f"halting")
+                info = f"halting"
                 self.curr += 1
             case _:
                 raise ValueError("Invalid op code")

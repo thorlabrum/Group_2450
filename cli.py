@@ -1,0 +1,14 @@
+from word import Word
+from uvsim import UVSim 
+
+
+def main():
+    sim = UVSim()
+
+    print(Word())
+    sim.read_file(input("Which file would you like to read?\n>"))
+    while not sim.is_halted:
+        print(sim.operate()[1])
+
+if __name__ == "__main__":
+    main()
