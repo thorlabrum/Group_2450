@@ -18,8 +18,8 @@ class UVSim:
             try:
                 if len(lines) > 100:
                     raise IndexError("File exceeds memory capacity of 100 lines.")
-                
                 for i, line in enumerate(lines):
+                    line = line.strip()
                     self.memory[i].set_value(int(line))
             except IndexError:
                 return "File exceeds memory capacity of 100 lines."
@@ -33,8 +33,22 @@ class UVSim:
                 self.memory[i].set_value(int(input_vals[i]))
         except IndexError:
             return "IndexError: File exceeds memory capacity of 100 lines."
+        return "Successfully imported file to memory"
 
-    def operate(self, info= ""):
+    def __iter__(self):
+        """ A function to make UVSim iterable """
+        return self
+    
+    def __next__(self):
+        """ A function to determine what the next object is when iterating """
+        if self.is_halted == True:
+            raise StopIteration
+        info = self.operate()
+        if self.is_halted == True:
+            raise StopIteration
+        return info
+
+    def operate(self):
         """Resets current pointer and _is_halted. While loop iterates through each line
         separating op_code and operand, reads in the command, and then increments self.current"""
         curr_word = self.memory[self.curr]
@@ -94,18 +108,18 @@ class UVSim:
             case 43:
                 self.halt()
                 info = f"halting"
-                self.curr += 1
             case _:
                 info = f"ValueError: {op_code} of {op_code}{operand} is an invalid input."
-            
-        return self.memory, info
+        return info
             
 
 
     def read(self, operand):
         """Reads a word from the keyboard into a specific location in memory."""
+        print('READ FUNCTION')
         value = input("Enter a value: ")
         self.memory[operand].set_value(int(value))
+        self.curr +=1
         # print("read function called")
 
     def write(self, operand):

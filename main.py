@@ -22,22 +22,27 @@ def main():
 
     def run():
         sim = UVSim()
+        global path
         if path != '':
-            sim.read_file(path) #read filepath here
-            memory, info = sim.operate()
-            run_results.insert(f'Traceback: \n {info}, Final memory contents: {memory}')
-            #also add so any errors go into the run_results instead
+            result = sim.read_file(path) #read filepath here
+            run_results.insert(ctk.END, f"{result} \n")
+        for _ in range(100):
+            info = sim.operate()
+        # for info in sim:
+        #     print(f'loop {sim.curr}')
+            run_results.insert(ctk.END, f"Operation: {info} \n")
+        run_results.insert(ctk.END, f"Final memory contents: {sim.memory}")
 
     info_label = ctk.CTkLabel(canvas, text='Welcome to UVSim')
     filepath_btn = ctk.CTkButton(canvas, text='open txt file', command=get_filepath)
     filepath_lbl = ctk.CTkLabel(canvas, text='no filepath open')
     run_btn = ctk.CTkButton(canvas, text = 'Run', command = run)
-    run_results = ctk.CTkTextbox(canvas, height=5, width=1)
+    run_results = ctk.CTkTextbox(canvas, height=500, width=500)
 
     info_label.grid(row=1, column=1, padx=20, pady=20, columnspan=2)
     filepath_btn.grid(row=2, column=1, padx=20, pady=20)
     filepath_lbl.grid(row=2, column=2, padx=20, pady=20)
-    run_btn.grid(row=3, column=1, padx=20, pady=20)
+    run_btn.grid(row=4, column=1, padx=20, pady=20)
     run_results.grid(row=3, column=2, padx=20, pady=20)
 
     window.mainloop()

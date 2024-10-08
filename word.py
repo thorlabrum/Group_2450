@@ -6,6 +6,11 @@ class Word:
         if self.value > -1:
             return f"+{self.value:04}"
         return f"{self.value:04}"
+    
+    def __repr__(self):
+        if self.value > -1:
+            return f"+{self.value:04}"
+        return f"{self.value:04}"
 
     def __int__(self):
         return self.value
@@ -49,7 +54,7 @@ class Word:
     def get_value(self):
         return self.value
     
-
+    
 def in_range(x):
     """makes sure x is within the bounds -10000 < x < 10000. It loops it around if it falls outside that range"""
     x = int(x) # insures x is an integer
