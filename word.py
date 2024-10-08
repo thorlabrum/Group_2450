@@ -59,9 +59,9 @@ def in_range(x):
     """makes sure x is within the bounds -10000 < x < 10000. It loops it around if it falls outside that range"""
     x = int(x) # insures x is an integer
     while not (-10000 < x < 10000):
-        if x < -9999:
+        if x < -10000:
             x += 19999
-        elif x > 9999:
+        elif x > 10000:
             x -= 19999
     return x
     

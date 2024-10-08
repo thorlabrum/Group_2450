@@ -51,6 +51,8 @@ class UVSim:
     def operate(self):
         """Resets current pointer and _is_halted. While loop iterates through each line
         separating op_code and operand, reads in the command, and then increments self.current"""
+    def operate(self, info= ""):
+        """separates op_code and operand, reads in the command, and then increments self.current"""
         curr_word = self.memory[self.curr]
         #find operand(last 2 digits)
         operand = curr_word.get_value() % 100

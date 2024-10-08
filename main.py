@@ -28,8 +28,6 @@ def main():
             run_results.insert(ctk.END, f"{result} \n")
         for _ in range(100):
             info = sim.operate()
-        # for info in sim:
-        #     print(f'loop {sim.curr}')
             run_results.insert(ctk.END, f"Operation: {info} \n")
         run_results.insert(ctk.END, f"Final memory contents: {sim.memory}")
 
