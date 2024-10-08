@@ -26,7 +26,7 @@ def main():
         if path != '':
             result = sim.read_file(path) #read filepath here
             run_results.insert(ctk.END, f"{result} \n")
-        for _ in range(100):
+        for _ in sim:
             info = sim.operate()
             run_results.insert(ctk.END, f"Operation: {info} \n")
         run_results.insert(ctk.END, f"Final memory contents: {sim.memory}")
@@ -40,7 +40,7 @@ def main():
     info_label.grid(row=1, column=1, padx=20, pady=20, columnspan=2)
     filepath_btn.grid(row=2, column=1, padx=20, pady=20)
     filepath_lbl.grid(row=2, column=2, padx=20, pady=20)
-    run_btn.grid(row=2, column=1, padx=20, pady=20, sticky='n')
+    run_btn.grid(row=3, column=1, padx=20, pady=20, sticky='n')
     run_results.grid(row=3, column=2, padx=20, pady=20)
 
     window.mainloop()
