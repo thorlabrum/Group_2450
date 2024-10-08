@@ -1,7 +1,9 @@
 To run UVSim:
 
 1. Prepare a test file with the four number commands the simulator should run, in order. No more than 100 lines.
-2. In terminal `python main.py` input the txt file path
+2. In terminal `python main.py`
+3. Press the 'open file' button and choose the text file.
+4. Press the 'run' button. The results of each operation and the final memory contents will be displayed in the textbox.
 
 Words:
 Words are four number sequences - two digits are the op code, two are the number to preform the opcode on.
