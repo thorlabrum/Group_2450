@@ -1,4 +1,5 @@
 from word import Word
+from memory_editor import MemoryEditor
 
 class UVSim:
     def __init__(self):
@@ -9,6 +10,7 @@ class UVSim:
             self.memory.append(Word(0))
         self.accumulator = Word(0)
         self.is_halted = False
+        self.memory_editor = MemoryEditor(self)
 
     def read_file(self,filename):
         # iterate through the lines
@@ -168,7 +170,6 @@ class UVSim:
         else:
             print("No branch, accumulator is not zero")
             self.curr += 1
-
 
     def halt(self):
         """Halts operate function as dictated by the loaded text file."""
