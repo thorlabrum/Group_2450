@@ -39,8 +39,10 @@ class UVSim:
     def operate(self, info= ""):
         """separates op_code and operand, reads in the command, and then increments self.current"""
         curr_word = self.memory[self.curr]
-        #find operand(last 2 digits)
+        #find operand(last 4 digits)
         operand = curr_word.get_value() % 10**4
+        if operand > 250:
+            raise ValueError("Operand operating on a value greater than 250")
         #find op code(first 2 digits)
         op_code = int(curr_word.get_value() // 10**4)
         # print(f"Opcode: {op_code}   Operand: {operand}")
