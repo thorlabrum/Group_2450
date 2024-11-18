@@ -6,7 +6,7 @@ class UVSim:
         """Creates memory bank and accumulator for UVSim initializing all values to 0. """
         self.curr = 0
         self.memory = []
-        for _ in range (100):
+        for _ in range (250):
             self.memory.append(Word(0))
         self.accumulator = Word(0)
         self.is_halted = False
@@ -18,31 +18,31 @@ class UVSim:
             lines = f.readlines()
 
             try:
-                if len(lines) > 100:
-                    raise IndexError("File exceeds memory capacity of 100 lines.")
+                if len(lines) > 250:
+                    raise IndexError("File exceeds memory capacity of 250 lines.")
                 
                 for i, line in enumerate(lines):
-                    self.memory[i].set_value(int(line))
+                    self.memory[i].set_value(int(convert(line)))
             except IndexError:
-                return "File exceeds memory capacity of 100 lines."
+                return "File exceeds memory capacity of 250 lines."
 
 
     def read_input(self, input_vals):
         try:
-            if len(input_vals) > 100:
+            if len(input_vals) > 250:
                 raise IndexError("File exceeds memory capacity")
             for i in range(len(input_vals)):
                 self.memory[i].set_value(int(input_vals[i]))
         except IndexError:
-            return "IndexError: File exceeds memory capacity of 100 lines."
+            return "IndexError: File exceeds memory capacity of 250 lines."
 
     def operate(self, info= ""):
         """separates op_code and operand, reads in the command, and then increments self.current"""
         curr_word = self.memory[self.curr]
         #find operand(last 2 digits)
-        operand = curr_word.get_value() % 100
+        operand = curr_word.get_value() % 10**4
         #find op code(first 2 digits)
-        op_code = int(curr_word.get_value() // 100)
+        op_code = int(curr_word.get_value() // 10**4)
         # print(f"Opcode: {op_code}   Operand: {operand}")
 
         match op_code:
@@ -121,7 +121,7 @@ class UVSim:
 
     def store(self, operand):
         """Store a word from the accumulator into a specific location in memory."""
-        self.memory[operand].set_value(self.accumulator)
+        self.memory[operand].set_value(self.accumulator.get_value())
         # print("store function called")
 
     def add(self, operand):
@@ -175,3 +175,10 @@ class UVSim:
         """Halts operate function as dictated by the loaded text file."""
         self.is_halted = True
         print("halt function called")
+
+def convert(s):
+    """converts string that is 4 digits into 6 digits"""
+    if len(s) < 7: # includes sign
+        s = s[:3] + ("0" * 2) + s[3:] # needs to be 2 because op codes are two digits
+    return s
+
