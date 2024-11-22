@@ -1,16 +1,13 @@
+WORD_LENGTH = 6 # number of digits in word
+
 class Word:
-    def __init__(self, val = 0):
-        self.value = in_range(val)
+    def __init__(self, val = "000000"):
+        self.value = in_range(int(val))
 
     def __str__(self):
         if self.value > -1:
-            return f"+{self.value:04}"
-        return f"{self.value:04}"
-    
-    def __repr__(self):
-        if self.value > -1:
-            return f"+{self.value:04}"
-        return f"{self.value:04}"
+            return f"+{self.value:06}"
+        return f"{self.value:07}" # minus sign counts
 
     def __int__(self):
         return self.value
@@ -48,8 +45,8 @@ class Word:
     def __ifloordiv__(self,r):
         return self // r
 
-    def set_value(self,x):
-        self.value = in_range(x)
+    def set_value(self,v):
+        self.value = v
 
     def get_value(self):
         return self.value
@@ -58,11 +55,11 @@ class Word:
 def in_range(x):
     """makes sure x is within the bounds -10000 < x < 10000. It loops it around if it falls outside that range"""
     x = int(x) # insures x is an integer
-    while not (-10000 < x < 10000):
-        if x < -10000:
-            x += 19999
-        elif x > 10000:
-            x -= 19999
+    while not (-1000000 < x < 1000000):
+        if x < -1000000:
+            x += 1999999
+        elif x > 1000000:
+            x -= 1999999
     return x
     
 
