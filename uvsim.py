@@ -1,5 +1,20 @@
 from word import Word
 from memory_editor import MemoryEditor
+from enum import Enum, auto
+
+class Opcode(Enum):
+    READ = 10
+    WRITE = 11
+    LOAD = 20
+    STORE = 21
+    ADD = 30
+    SUBTRACT = 31
+    DIVIDE = 32
+    MULTIPLY = 33
+    BRANCH = 40
+    BRANCHNEG = 41
+    BRANCHZERO = 42
+    HALT = 43
 
 class UVSim:
     def __init__(self):
@@ -60,54 +75,56 @@ class UVSim:
         op_code = int(curr_word.get_value() // 10**4)
         # print(f"Opcode: {op_code}   Operand: {operand}")
 
-        match op_code:
-            case 10:
+        op = Opcode(op_code)
+
+        match op:
+            case Opcode.READ:
                 self.read(operand)
                 info = f"reading {operand} from {curr_word}"
                 # instead of appending to info, I just make info = the new string 
                 # because it is returned every time operate is called
                 self.curr += 1
-            case 11:
+            case Opcode.WRITE:
                 self.write(operand)
                 info = f"writing {operand} to {curr_word}"
                 self.curr += 1
-            case 20:
+            case Opcode.LOAD:
                 self.load(operand)
                 info = f"loading {operand} from {curr_word}"
                 self.curr += 1
-            case 21:
+            case Opcode.STORE:
                 self.store(operand)
                 info = f"storing {operand} from {curr_word}"
                 self.curr += 1
-            case 30:
+            case Opcode.ADD:
                 self.add(operand)
                 info = f"adding {operand} from {curr_word}"
                 self.curr += 1
-            case 31:
+            case Opcode.SUBTRACT:
                 self.subtract(operand)
                 info = f"subtracting {operand} from {curr_word}"
                 self.curr += 1
-            case 32:
+            case Opcode.DIVIDE:
                 self.divide(operand)
                 info = f"dividing {operand} from {curr_word} \n"
                 self.curr += 1
-            case 33:
+            case Opcode.MULTIPLY:
                 self.multiply(operand)
                 info = f"multiplying {operand} from {curr_word}"
                 self.curr += 1
-            case 40:
+            case Opcode.BRANCH:
                 self.branch(operand)
                 info = f"branching to {operand} from {curr_word} \n"
                 #curr not incremented as branch changes it
-            case 41:
+            case Opcode.BRANCHNEG:
                 self.branchneg(operand)
                 info = f"attempting to branch to {operand} from {curr_word}"
                 #curr not incremented as branch changes it
-            case 42:
+            case Opcode.BRANCHZERO:
                 self.branchzero(operand)
                 info = f"attempting to branch to {operand} from {curr_word} \n"
                 #curr not incremented as branch changes it
-            case 43:
+            case Opcode.HALT:
                 self.halt()
                 info = f"halting"
             case _:
