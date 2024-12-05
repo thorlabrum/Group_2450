@@ -56,7 +56,8 @@ class PerformOperation:
     def execute(self, word):
 
         operand = word.get_value() % 10**4
+
         if operand > 250:
             raise ValueError("Operand operating on a value greater than 250")
 
-        return self.operation(operand)
+        return self.operation.execute(operand)
