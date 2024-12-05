@@ -167,7 +167,7 @@ def main():
     run_results.grid(row=3, column=2, padx=20, pady=20)
 
     canvas1.grid()
-     window.mainloop()
+    window.mainloop()
 
 if __name__ == "__main__":
     main()
