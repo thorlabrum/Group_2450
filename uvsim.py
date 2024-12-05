@@ -37,7 +37,7 @@ class UVSim:
                     raise IndexError("File exceeds memory capacity of 250 lines.")
                 
                 for i, line in enumerate(lines):
-                    self.memory[i].set_value(int(convert(line)))
+                    self.memory[i].set_value(convert(line))
             except IndexError:
                 return "File exceeds memory capacity of 250 lines."
 
@@ -67,12 +67,13 @@ class UVSim:
     def operate(self):
         """separates op_code and operand, reads in the command, and then increments self.current"""
         curr_word = self.memory[self.curr]
+        #print(f"{curr_word} @ {self.curr}")
         #find operand(last 4 digits)
         operand = curr_word.get_value() % 10**4
         if operand > 250:
             raise ValueError("Operand operating on a value greater than 250")
         #find op code(first 2 digits)
-        op_code = int(curr_word.get_value() // 10**4)
+        op_code = curr_word.get_value() // 10**4
         # print(f"Opcode: {op_code}   Operand: {operand}")
 
         op = Opcode(op_code)
@@ -138,7 +139,6 @@ class UVSim:
         print('READ FUNCTION')
         value = input("Enter a value: ")
         self.memory[operand].set_value(int(value))
-        self.curr +=1
         # print("read function called")
 
     def write(self, operand):
@@ -210,7 +210,7 @@ class UVSim:
 
 def convert(s):
     """converts string that is 4 digits into 6 digits"""
-    if len(s) < 7: # includes sign
-        s = s[:3] + ("0" * 2) + s[3:] # needs to be 2 because op codes are two digits
-    return s
+    if len(s.strip()) == 5: # includes sign
+        s = s[:3] + ("0" * 2) + s[3:] 
+    return int(s)
 

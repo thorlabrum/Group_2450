@@ -46,20 +46,21 @@ class Word:
         return self // r
 
     def set_value(self,v):
-        self.value = v
+        self.value = in_range(v)
 
     def get_value(self):
         return self.value
     
     
 def in_range(x):
-    """makes sure x is within the bounds -10000 < x < 10000. It loops it around if it falls outside that range"""
+    """makes sure x is within the bounds -1000000 < x < 1000000. It loops it around if it falls outside that range"""
     x = int(x) # insures x is an integer
-    while not (-1000000 < x < 1000000):
-        if x < -1000000:
-            x += 1999999
-        elif x > 1000000:
-            x -= 1999999
+    maxnum = 10**WORD_LENGTH
+    while not (-1*maxnum < x < maxnum):
+        if x < -1 * maxnum:
+            x += 2*maxnum - 1
+        elif x > maxnum:
+            x -= 2 * maxnum - 1
     return x
     
 
