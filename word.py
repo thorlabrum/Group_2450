@@ -27,7 +27,7 @@ class Word:
     def __sub__(self,r):
         return Word(in_range(self.value - int(r)))
     
-    def __mult__(self, r):
+    def __mul__(self, r):
         return Word(in_range(self.value * int(r)))
     
     def __floordiv__(self,r):
@@ -39,7 +39,7 @@ class Word:
     def __isub__(self,r):
         return self - r
     
-    def __imult__(self,r):
+    def __imul__(self,r):
         return self * r
     
     def __ifloordiv__(self,r):
@@ -56,10 +56,10 @@ def in_range(x):
     """makes sure x is within the bounds -1000000 < x < 1000000. It loops it around if it falls outside that range"""
     x = int(x) # insures x is an integer
     maxnum = 10**WORD_LENGTH
-    while not (-1*maxnum < x < maxnum):
-        if x < -1 * maxnum:
+    while not ((-1*maxnum) < x < maxnum):
+        if x <= (-1 * maxnum):
             x += 2*maxnum - 1
-        elif x > maxnum:
+        elif x >= maxnum:
             x -= 2 * maxnum - 1
     return x
     
